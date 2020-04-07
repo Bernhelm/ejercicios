@@ -1,0 +1,15 @@
+.numero {
+  color: #c5c5c5;
+}
+
+[show-result].valid::after {
+  content: "✓";
+  display: inline-block;
+  color: green;
+}
+
+[show-result].invalid::after {
+  content: "✗";
+  display: inline-block;
+  color: red;
+}

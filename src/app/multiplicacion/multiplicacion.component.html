@@ -1,0 +1,17 @@
+<div>{{ timer }}</div>
+<div *ngFor="let ejercicio of this.ejercicios; index as i">
+  <div>
+    <span class="numero">{{ (i + 1) + '. ' }}</span>
+    <span>{{ ejercicio.a + ' ' + ejercicio.operation + ' ' + ejercicio.b + ' = '}}</span>
+    <input
+      type="number"
+      [disabled]="ejercicio.disabled"
+      [(ngModel)]="ejercicio.answer"
+    >
+    <span
+      show-result
+      [ngClass]="{valid: ejercicio.result && ejercicio.disabled, invalid: ejercicio.result === false && ejercicio.disabled}"
+    ></span>
+  </div>
+</div>
+<button (click)="checkAll()">Termina!!</button>
