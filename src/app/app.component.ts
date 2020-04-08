@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'examen';
-  points: number;
+  points: number = null;
 
   updateResult(points: number) {
     this.points = points;

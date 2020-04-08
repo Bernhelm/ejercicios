@@ -1,15 +1,71 @@
-.numero {
-  color: #c5c5c5;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+
+operation-timer {
+  position: fixed;
+  color: #6a38ff;
+  top: 20px;
+  right: 20px;
+  font-family: Roboto;
+  font-size: 25px;
+  background-color: #efefef;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 2px 2px #797979;
 }
 
-[show-result].valid::after {
+operation-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 30px;
+  line-height: 30px;
+  font-family: "Roboto";
+}
+
+operation-number {
+  flex-basis: 40px;
+  color: #c5c5c5;
+  text-align: right;
+  padding-right: 10px;
+}
+
+operation-field {
+  flex-basis: 60px;
+}
+
+input {
+  width: 40px;
+  border-width: 0 0 1px 0;
+  height: 25px;
+  align-self: center;
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 18px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+operation-result {
+  flex-basis: 30px;
+}
+
+operation-result.valid::after {
   content: "✓";
   display: inline-block;
   color: green;
+  font-size: 30px;
+  padding-left: 5px;
 }
 
-[show-result].invalid::after {
+operation-result.invalid::after {
   content: "✗";
   display: inline-block;
   color: red;
+  font-size: 30px;
+  padding-left: 5px;
 }

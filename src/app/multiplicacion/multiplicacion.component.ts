@@ -1,4 +1,11 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { Exercise } from '../exercise';
 
 @Component({
@@ -8,12 +15,14 @@ import { Exercise } from '../exercise';
 })
 export class MultiplicacionComponent implements OnInit {
   @Output() result = new EventEmitter<number>();
+  @ViewChild('container') container: ElementRef;
   ejercicios: Array<Exercise>;
   timer: string;
   countdown: number = 120;
+  difficult: number = 30;
 
   constructor() {
-    this.ejercicios = new Array(30)
+    this.ejercicios = new Array(this.difficult)
       .fill({})
       .map((file) => this.createExercice());
     this.startTimer();
@@ -58,6 +67,19 @@ export class MultiplicacionComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  keyDown(event, index: number): void {
+    console.log(this.container);
+    if (event.key === 'Enter') {
+      if (index + 1 < this.difficult) {
+        this.container.nativeElement
+          .querySelectorAll('input')
+          [index + 1].focus();
+      } else {
+        this.checkAll();
+      }
+    }
+  }
 
   check(ejercicio): void {
     ejercicio.disabled = true;

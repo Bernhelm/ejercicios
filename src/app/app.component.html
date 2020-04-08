@@ -1,2 +1,5 @@
 <app-multiplicacion (result)="updateResult($event)"></app-multiplicacion>
-<div>Resultado: {{ this.points }}</div>
+<div
+  class="resultado"
+  *ngIf="this.points !== null"
+>Resultado: {{ this.points }}</div>
