@@ -1,5 +1,8 @@
 <operation-timer>{{ timer }}</operation-timer>
-<div #container>
+<div
+  #container
+  class="container"
+>
   <operation-container *ngFor="let ejercicio of this.ejercicios; index as i">
     <operation-number class="numero">{{ (i + 1) + '. ' }}</operation-number>
     <operation-field>{{ ejercicio.a + ' ' + ejercicio.operation + ' ' + ejercicio.b + ' = '}}</operation-field>

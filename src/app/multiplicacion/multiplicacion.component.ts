@@ -19,7 +19,7 @@ export class MultiplicacionComponent implements OnInit {
   ejercicios: Array<Exercise>;
   timer: string;
   countdown: number = 120;
-  difficult: number = 30;
+  difficult: number = 40;
 
   constructor() {
     this.ejercicios = new Array(this.difficult)
