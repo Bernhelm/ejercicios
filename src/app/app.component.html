@@ -1,5 +1,34 @@
-<app-multiplicacion (result)="updateResult($event)"></app-multiplicacion>
-<div
+<user-login *ngIf="!this.user">
+  <user-selector *ngFor="let user of this.users">
+    <user-name (click)="selectUser(user)">{{ user }}</user-name>
+  </user-selector>
+</user-login>
+<app-multiplicacion
+  *ngIf="this.user"
+  (result)="updateResult($event)"
+></app-multiplicacion>
+<app-result
   class="resultado"
   *ngIf="this.points !== null"
->Resultado: {{ this.points }}</div>
+>Resultado: {{ this.points }}</app-result>
+<app-button
+  class="resultado"
+  *ngIf="this.points !== null"
+  (click)="reload()"
+>Repetir</app-button>
+<div
+  class="chart-wrapper"
+  *ngIf="this.users.length > 0"
+>
+  <canvas
+    baseChart
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+    [colors]="lineChartColors"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins"
+  >
+  </canvas>
+</div>

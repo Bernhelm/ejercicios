@@ -6,3 +6,8 @@ export interface Exercise {
   result: boolean;
   answer: number;
 }
+
+export interface UserData {
+  data: Array<number>;
+  label: string;
+}

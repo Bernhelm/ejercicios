@@ -1,20 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import "../../styles";
 
 .container {
   column-count: 2;
 }
 
 operation-timer {
+  @include app-box;
   position: fixed;
   color: #6a38ff;
   top: 20px;
-  right: 20px;
-  font-family: Roboto;
+  left: 20px;
   font-size: 25px;
-  background-color: #efefef;
-  border-radius: 5px;
-  padding: 5px;
-  box-shadow: 2px 2px #797979;
 }
 
 operation-container {
@@ -43,7 +39,6 @@ input {
   height: 25px;
   align-self: center;
   text-align: center;
-  font-family: "Roboto";
   font-size: 18px;
 }
 

@@ -1,0 +1,20 @@
+@mixin app-box {
+  background-color: $button-idle;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 2px 2px $button-shadow-idle;
+}
+
+@mixin app-button {
+  @include app-box;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 150px;
+  align-self: center;
+  text-align: center;
+  font-size: 25px;
+  &:hover {
+    background-color: $button-hover;
+    box-shadow: 1px 1px $button-shadow-hover;
+  }
+}

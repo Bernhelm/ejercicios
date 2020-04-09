@@ -6,7 +6,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Exercise } from '../exercise';
+import { Exercise } from '../interfaces';
 
 @Component({
   selector: 'app-multiplicacion',
@@ -20,6 +20,7 @@ export class MultiplicacionComponent implements OnInit {
   timer: string;
   countdown: number = 120;
   difficult: number = 40;
+  interval;
 
   constructor() {
     this.ejercicios = new Array(this.difficult)
@@ -29,12 +30,12 @@ export class MultiplicacionComponent implements OnInit {
   }
 
   startTimer() {
-    let interval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.countdown--;
       this.formatTimer();
       if (this.countdown <= 0) {
         this.checkAll();
-        clearInterval(interval);
+        clearInterval(this.interval);
       }
     }, 1000);
   }
@@ -69,7 +70,6 @@ export class MultiplicacionComponent implements OnInit {
   ngOnInit(): void {}
 
   keyDown(event, index: number): void {
-    console.log(this.container);
     if (event.key === 'Enter') {
       if (index + 1 < this.difficult) {
         this.container.nativeElement
@@ -101,7 +101,15 @@ export class MultiplicacionComponent implements OnInit {
       this.ejercicios.filter(
         (ejercicio: Exercise) => !ejercicio.result && ejercicio.answer !== null
       ).length *
-        1;
+        1 +
+      Math.max(
+        0,
+        Math.floor(this.countdown / 10) -
+          this.ejercicios.filter(
+            (ejercicio: Exercise) => ejercicio.answer === null
+          ).length
+      );
     this.result.emit(points);
+    clearInterval(this.interval);
   }
 }

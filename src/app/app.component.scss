@@ -1,13 +1,35 @@
-.resultado {
+@import "../styles";
+
+user-login {
+  padding: 150px;
+}
+
+user-selector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80px;
+
+  user-name {
+    @include app-button;
+  }
+}
+
+app-button {
+  @include app-button;
   position: fixed;
-  left: 20px;
-  top: 20px;
-  position: fixed;
+  right: 20px;
+  top: 70px;
   color: #6a38ff;
-  font-family: Roboto;
   font-size: 25px;
-  background-color: #efefef;
-  border-radius: 5px;
-  padding: 5px;
-  box-shadow: 2px 2px #797979;
+}
+
+app-result {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 150px;
+  color: #6a38ff;
+  font-size: 25px;
+  @include app-box;
 }
