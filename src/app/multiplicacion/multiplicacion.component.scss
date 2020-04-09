@@ -57,7 +57,7 @@ operation-result.valid::after {
   content: "✓";
   display: inline-block;
   color: green;
-  font-size: 30px;
+  font-size: 25px;
   padding-left: 5px;
 }
 
@@ -65,6 +65,6 @@ operation-result.invalid::after {
   content: "✗";
   display: inline-block;
   color: red;
-  font-size: 30px;
+  font-size: 25px;
   padding-left: 5px;
 }

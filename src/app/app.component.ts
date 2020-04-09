@@ -64,20 +64,31 @@ export class AppComponent {
   }
 
   updateData() {
-    this.lineChartData = Object.keys(this.storage).map((user) => {
-      const userData: UserData = {
-        data: this.storage[user],
-        label: user,
-      };
-      return userData;
-    });
-
     const maxNumberValues: number = Object.keys(this.storage).reduce(
       (accum, user) => {
         return Math.max(accum, this.storage[user].length);
       },
       0
     );
+
+    this.lineChartData = Object.keys(this.storage)
+      .map((user) => {
+        const userData: UserData = {
+          data: this.storage[user],
+          label: user,
+        };
+        return userData;
+      })
+      .map((value) => {
+        const length = value.data.length;
+        if (length < maxNumberValues) {
+          value.data = [
+            ...value.data,
+            ...new Array(maxNumberValues - length).fill(value.data[length - 1]),
+          ];
+        }
+        return value;
+      });
 
     this.lineChartLabels = new Array(maxNumberValues).fill('');
   }
