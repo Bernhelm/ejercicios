@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  AfterViewInit,
   EventEmitter,
   Input,
   Output,
@@ -14,7 +15,7 @@ import { Exercise } from '../interfaces';
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.scss'],
 })
-export class ExerciseComponent implements OnInit {
+export class ExerciseComponent implements OnInit, AfterViewInit {
   @Input('exercise') exercise: Exercise;
   @Output() result = new EventEmitter<number>();
   @ViewChild('container') container: ElementRef;
@@ -29,6 +30,23 @@ export class ExerciseComponent implements OnInit {
       .fill({})
       .map((file) => this.createExercice());
     this.startTimer();
+  }
+
+  ngAfterViewInit(): void {
+    this.focusFirstEmpty();
+  }
+
+  focusFirstEmpty(): boolean {
+    const inputs = Array.prototype.slice.call(
+      this.container.nativeElement.querySelectorAll('input')
+    );
+    const empty = inputs.find((input) => input.value === '');
+    if (empty) {
+      empty.focus();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   startTimer() {
@@ -94,7 +112,9 @@ export class ExerciseComponent implements OnInit {
           .querySelectorAll('input')
           [index + 1].focus();
       } else {
-        this.checkAll();
+        if (!this.focusFirstEmpty()) {
+          this.checkAll();
+        }
       }
     }
   }
