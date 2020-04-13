@@ -1,24 +1,5 @@
 @import "../styles";
 
-app-button {
-  @include app-button;
-  position: fixed;
-  right: 20px;
-  top: 70px;
-  color: #6a38ff;
-  font-size: 25px;
-}
-
-app-result {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-  width: 150px;
-  color: #6a38ff;
-  font-size: 25px;
-  @include app-box;
-}
-
 chart-container {
   display: flex;
 }

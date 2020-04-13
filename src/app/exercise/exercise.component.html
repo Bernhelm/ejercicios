@@ -18,3 +18,28 @@
     ></operation-result>
   </operation-container>
 </div>
+<app-result
+  class="resultado"
+  *ngIf="points !== null"
+>Resultado: {{ points }}</app-result>
+<app-button
+  class="resultado"
+  *ngIf="points !== null"
+  (click)="reload()"
+>Repetir</app-button>
+<chart-container *ngIf="points">
+  <div class="chart-wrapper">
+    <span>{{ exercise.name }}</span>
+    <canvas
+      baseChart
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins"
+    >
+    </canvas>
+  </div>
+</chart-container>
