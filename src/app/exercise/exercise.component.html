@@ -23,10 +23,15 @@
   *ngIf="points !== null"
 >Resultado: {{ points }}</app-result>
 <app-button
-  class="resultado"
+  class="reset"
+  *ngIf="points !== null"
+  (click)="refresh()"
+>Repetir</app-button>
+<app-button
+  class="back"
   *ngIf="points !== null"
   (click)="reload()"
->Repetir</app-button>
+>Inicio</app-button>
 <chart-container *ngIf="points">
   <div class="chart-wrapper">
     <span>{{ exercise.name }}</span>

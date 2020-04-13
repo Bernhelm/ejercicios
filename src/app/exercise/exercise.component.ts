@@ -223,6 +223,12 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
     this.lineChartLabels = new Array(maxNumberValues).fill('');
   }
 
+  refresh(): void {
+    this.points = null;
+    this.countdown = 120;
+    this.ngOnInit();
+  }
+
   reload(): void {
     this.UserService.setCurrent(null);
     this.SelectorService.setCurrent(null);

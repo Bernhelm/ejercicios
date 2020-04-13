@@ -76,6 +76,14 @@ app-button {
   top: 70px;
   color: #6a38ff;
   font-size: 25px;
+
+  &.reset {
+    top: 70px;
+  }
+
+  &.back {
+    top: 120px;
+  }
 }
 
 app-result {
