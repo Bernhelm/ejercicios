@@ -10,6 +10,7 @@ export interface Exercise {
 }
 
 export interface UserData {
-  data: Array<number>;
+  data: Array<Array<number>>;
   label: string;
+  id: number;
 }

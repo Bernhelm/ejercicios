@@ -2,13 +2,16 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  EventEmitter,
-  Input,
-  Output,
   ViewChild,
   ElementRef,
 } from '@angular/core';
-import { Exercise } from '../interfaces';
+import { UserData, Exercise } from '../interfaces';
+import { SelectorService } from '../selector.service';
+import { UserService } from '../user.service';
+import { DataService } from '../data.service';
+import { Router } from '@angular/router';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import { Color, Label } from 'ng2-charts';
 
 @Component({
   selector: 'app-exercise',
@@ -16,14 +19,48 @@ import { Exercise } from '../interfaces';
   styleUrls: ['./exercise.component.scss'],
 })
 export class ExerciseComponent implements OnInit, AfterViewInit {
-  @Input('exercise') exercise: Exercise;
-  @Output() result = new EventEmitter<number>();
+  exercise: Exercise;
+  user: UserData;
   @ViewChild('container') container: ElementRef;
   ejercicios: Array<Exercise>;
   timer: string;
   countdown: number = 120;
   difficult: number = 40;
+  points: number = null;
   interval;
+
+  lineChartData: ChartDataSets[];
+
+  lineChartLabels: Label[];
+
+  lineChartOptions = {
+    responsive: true,
+  };
+
+  lineChartColors: Color[] = [
+    {
+      borderColor: 'black',
+      backgroundColor: 'rgba(255,255,0,0.28)',
+    },
+  ];
+
+  lineChartLegend = true;
+  lineChartPlugins = [];
+  lineChartType = 'line';
+
+  constructor(
+    private SelectorService: SelectorService,
+    private UserService: UserService,
+    private DataService: DataService,
+    private router: Router
+  ) {
+    this.exercise = this.SelectorService.current;
+    this.user = this.UserService.current;
+
+    if (!this.user || !this.exercise) {
+      this.router.navigate(['/login']);
+    }
+  }
 
   ngOnInit(): void {
     this.ejercicios = new Array(this.difficult)
@@ -159,7 +196,36 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
             (ejercicio: Exercise) => ejercicio.answer === null
           ).length
       );
-    this.result.emit(points);
+    this.DataService.add(points);
+    this.points = points;
+    this.updateData(this.DataService.getData());
     clearInterval(this.interval);
+  }
+
+  updateData(data: Array<UserData>) {
+    const maxNumberValues: number = data.reduce((accum, userData) => {
+      return Math.max(accum, userData.data[this.exercise.level].length);
+    }, 0);
+
+    this.lineChartData = data.map((userData) => {
+      let singleData = userData.data[this.exercise.level];
+      const length = singleData.length;
+      if (length < maxNumberValues) {
+        singleData = [
+          ...singleData,
+          ...new Array(maxNumberValues - length).fill(singleData[length - 1]),
+        ];
+      }
+      let dataSet: ChartDataSets = { data: singleData, label: userData.label };
+      return dataSet;
+    });
+
+    this.lineChartLabels = new Array(maxNumberValues).fill('');
+  }
+
+  reload(): void {
+    this.UserService.setCurrent(null);
+    this.SelectorService.setCurrent(null);
+    this.router.navigate(['/login']);
   }
 }

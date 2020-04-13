@@ -1,50 +1,5 @@
 @import "../styles";
 
-user-selector {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  user-name {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 25px;
-    @include app-button;
-  }
-}
-
-exercise-selector {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  exercise-name {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 25px;
-    @include app-button;
-  }
-}
-
-app-button {
-  @include app-button;
-  position: fixed;
-  right: 20px;
-  top: 70px;
-  color: #6a38ff;
-  font-size: 25px;
-}
-
-app-result {
-  position: fixed;
-  right: 20px;
-  top: 20px;
-  width: 150px;
-  color: #6a38ff;
-  font-size: 25px;
-  @include app-box;
-}
-
 chart-container {
   display: flex;
 }

@@ -5,10 +5,13 @@ import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { ExerciseComponent } from './exercise/exercise.component';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { SelectorComponent } from './selector/selector.component';
 
 @NgModule({
-  declarations: [AppComponent, ExerciseComponent],
-  imports: [BrowserModule, FormsModule, ChartsModule],
+  declarations: [AppComponent, ExerciseComponent, LoginComponent, SelectorComponent],
+  imports: [BrowserModule, FormsModule, ChartsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
