@@ -12,3 +12,12 @@ user-selector {
     @include app-button;
   }
 }
+
+app-button {
+  @include app-button;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  color: #6a38ff;
+  font-size: 25px;
+}

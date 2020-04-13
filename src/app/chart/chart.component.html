@@ -1,0 +1,19 @@
+<app-button><a
+    routerLink="/login"
+    routerLinkActive="active"
+  >Inicio</a>
+</app-button>
+<div class="chart-wrapper">
+  <span>Valores actuales</span>
+  <canvas
+    baseChart
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [options]="lineChartOptions"
+    [colors]="lineChartColors"
+    [legend]="lineChartLegend"
+    [chartType]="lineChartType"
+    [plugins]="lineChartPlugins"
+  >
+  </canvas>
+</div>

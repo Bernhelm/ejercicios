@@ -8,9 +8,10 @@ import { ExerciseComponent } from './exercise/exercise.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SelectorComponent } from './selector/selector.component';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
-  declarations: [AppComponent, ExerciseComponent, LoginComponent, SelectorComponent],
+  declarations: [AppComponent, ExerciseComponent, LoginComponent, SelectorComponent, ChartComponent],
   imports: [BrowserModule, FormsModule, ChartsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
