@@ -10,37 +10,34 @@ import { UserData, Exercise } from './interfaces';
 export class AppComponent {
   title = 'examen';
   points: number = null;
-  user: string = null;
+  user: UserData = null;
   users: Array<string> = ['Papa', 'Lia', 'David'];
   storage: Array<Object>;
   exercise: Exercise = null;
-  exercises: Array<Exercise> = [
-    { name: 'Suma', operation: '+', level: 0 },
-    { name: 'Resta', operation: '-', level: 1 },
-    { name: 'Multiplicacion', operation: 'x', level: 2 },
-  ];
+  exercises: Array<Exercise>;
+
   operation: string = null;
 
-  lineChartData: Array<ChartDataSets[]> = new Array(this.exercises.length).fill(
-    []
-  );
+  // lineChartData: Array<ChartDataSets[]> = new Array(this.exercises.length).fill(
+  //   []
+  // );
 
-  lineChartLabels: Array<Label[]> = new Array(this.exercises.length).fill([]);
+  // lineChartLabels: Array<Label[]> = new Array(this.exercises.length).fill([]);
 
-  lineChartOptions = {
-    responsive: true,
-  };
+  // lineChartOptions = {
+  //   responsive: true,
+  // };
 
-  lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,255,0,0.28)',
-    },
-  ];
+  // lineChartColors: Color[] = [
+  //   {
+  //     borderColor: 'black',
+  //     backgroundColor: 'rgba(255,255,0,0.28)',
+  //   },
+  // ];
 
-  lineChartLegend = true;
-  lineChartPlugins = [];
-  lineChartType = 'line';
+  // lineChartLegend = true;
+  // lineChartPlugins = [];
+  // lineChartType = 'line';
 
   constructor() {
     this.storage =
@@ -50,7 +47,7 @@ export class AppComponent {
         newUser[user] = [[], [], []];
         return Object.assign({}, accum, newUser);
       }, {});
-    this.updateData();
+    // this.updateData();
   }
 
   reload() {
@@ -66,15 +63,15 @@ export class AppComponent {
   }
 
   updateStorage() {
-    if (!this.storage[this.user]) {
-      this.storage[this.user] = [[], [], []];
+    if (!this.storage[this.user.id]) {
+      this.storage[this.user.id] = [[], [], []];
     }
-    this.storage[this.user][this.exercise.level] = [
-      ...this.storage[this.user][this.exercise.level],
+    this.storage[this.user.id][this.exercise.level] = [
+      ...this.storage[this.user.id][this.exercise.level],
       this.points,
     ];
     localStorage.setItem('data', JSON.stringify(this.storage));
-    this.updateData();
+    // this.updateData();
   }
 
   updateData() {
@@ -86,32 +83,32 @@ export class AppComponent {
         0
       );
 
-      this.lineChartData[index] = Object.keys(this.storage)
-        .map((user) => {
-          const userData: UserData = {
-            data: this.storage[user][index],
-            label: user,
-          };
-          return userData;
-        })
-        .map((value) => {
-          const length = value.data.length;
-          if (length < maxNumberValues) {
-            value.data = [
-              ...value.data,
-              ...new Array(maxNumberValues - length).fill(
-                value.data[length - 1]
-              ),
-            ];
-          }
-          return value;
-        });
+      // this.lineChartData[index] = Object.keys(this.storage)
+      //   .map((user) => {
+      //     const userData: UserData = {
+      //       data: this.storage[user][index],
+      //       label: user,
+      //     };
+      //     return userData;
+      //   })
+      //   .map((value) => {
+      //     const length = value.data.length;
+      //     if (length < maxNumberValues) {
+      //       value.data = [
+      //         ...value.data,
+      //         ...new Array(maxNumberValues - length).fill(
+      //           value.data[length - 1]
+      //         ),
+      //       ];
+      //     }
+      //     return value;
+      //   });
 
-      this.lineChartLabels[index] = new Array(maxNumberValues).fill('');
+      // this.lineChartLabels[index] = new Array(maxNumberValues).fill('');
     });
   }
 
-  selectUser(user: string) {
+  selectUser(user: UserData) {
     this.user = user;
   }
 

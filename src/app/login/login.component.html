@@ -1,0 +1,8 @@
+<user-selector>
+  <user-name
+    *ngFor="let user of users"
+    (click)="selectUser(user)"
+  >
+    {{ user.label }}
+  </user-name>
+</user-selector>

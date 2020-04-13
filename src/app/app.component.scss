@@ -1,31 +1,5 @@
 @import "../styles";
 
-user-selector {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  user-name {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 25px;
-    @include app-button;
-  }
-}
-
-exercise-selector {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  exercise-name {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 25px;
-    @include app-button;
-  }
-}
-
 app-button {
   @include app-button;
   position: fixed;

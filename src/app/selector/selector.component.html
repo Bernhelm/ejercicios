@@ -1,0 +1,8 @@
+<exercise-selector>
+  <exercise-name
+    *ngFor="let exercise of exercises"
+    (click)="selectExercise(exercise)"
+  >
+    {{ exercise.name }}
+  </exercise-name>
+</exercise-selector>

@@ -1,0 +1,14 @@
+@import "../../styles";
+
+user-selector {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  user-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 25px;
+    @include app-button;
+  }
+}
