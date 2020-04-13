@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   EventEmitter,
+  Input,
   Output,
   ViewChild,
   ElementRef,
@@ -9,11 +10,12 @@ import {
 import { Exercise } from '../interfaces';
 
 @Component({
-  selector: 'app-multiplicacion',
-  templateUrl: './multiplicacion.component.html',
-  styleUrls: ['./multiplicacion.component.scss'],
+  selector: 'app-exercise',
+  templateUrl: './exercise.component.html',
+  styleUrls: ['./exercise.component.scss'],
 })
-export class MultiplicacionComponent implements OnInit {
+export class ExerciseComponent implements OnInit {
+  @Input('exercise') exercise: Exercise;
   @Output() result = new EventEmitter<number>();
   @ViewChild('container') container: ElementRef;
   ejercicios: Array<Exercise>;
@@ -22,7 +24,7 @@ export class MultiplicacionComponent implements OnInit {
   difficult: number = 40;
   interval;
 
-  constructor() {
+  ngOnInit(): void {
     this.ejercicios = new Array(this.difficult)
       .fill({})
       .map((file) => this.createExercice());
@@ -51,10 +53,28 @@ export class MultiplicacionComponent implements OnInit {
   }
 
   createExercice() {
+    let x = this.getRandomInt();
+    let y = this.getRandomInt();
+    let a: number, b: number;
+    switch (this.exercise.operation) {
+      case '+':
+        a = x;
+        b = y;
+        break;
+      case '-':
+        a = Math.max(x, y);
+        b = Math.min(x, y);
+        break;
+      case 'x':
+        a = x;
+        b = y;
+        break;
+    }
+
     const exercise: Exercise = {
-      a: this.getRandomInt(),
-      b: this.getRandomInt(),
-      operation: 'x',
+      a: a,
+      b: b,
+      operation: this.exercise.operation,
       disabled: false,
       result: null,
       answer: null,
@@ -66,8 +86,6 @@ export class MultiplicacionComponent implements OnInit {
   getRandomInt(min = 1, max = 10) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
-
-  ngOnInit(): void {}
 
   keyDown(event, index: number): void {
     if (event.key === 'Enter') {
@@ -86,6 +104,18 @@ export class MultiplicacionComponent implements OnInit {
     switch (ejercicio.operation) {
       case 'x':
         ejercicio.result = ejercicio.a * ejercicio.b === ejercicio.answer;
+        if (ejercicio.answer === null) {
+          ejercicio.result = null;
+        }
+        break;
+      case '+':
+        ejercicio.result = ejercicio.a + ejercicio.b === ejercicio.answer;
+        if (ejercicio.answer === null) {
+          ejercicio.result = null;
+        }
+        break;
+      case '-':
+        ejercicio.result = ejercicio.a - ejercicio.b === ejercicio.answer;
         if (ejercicio.answer === null) {
           ejercicio.result = null;
         }

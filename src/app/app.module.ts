@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
-import { MultiplicacionComponent } from './multiplicacion/multiplicacion.component';
+import { ExerciseComponent } from './exercise/exercise.component';
 
 @NgModule({
-  declarations: [AppComponent, MultiplicacionComponent],
+  declarations: [AppComponent, ExerciseComponent],
   imports: [BrowserModule, FormsModule, ChartsModule],
   providers: [],
   bootstrap: [AppComponent],

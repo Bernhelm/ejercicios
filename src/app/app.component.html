@@ -1,34 +1,49 @@
-<user-login *ngIf="!this.user">
-  <user-selector *ngFor="let user of this.users">
-    <user-name (click)="selectUser(user)">{{ user }}</user-name>
-  </user-selector>
-</user-login>
-<app-multiplicacion
-  *ngIf="this.user"
+<user-selector *ngIf="!user">
+  <user-name
+    *ngFor="let user of users"
+    (click)="selectUser(user)"
+  >
+    {{ user }}
+  </user-name>
+</user-selector>
+<exercise-selector *ngIf="user && !exercise">
+  <exercise-name
+    *ngFor="let exercise of exercises"
+    (click)="selectExercise(exercise)"
+  >
+    {{ exercise.name }}
+  </exercise-name>
+</exercise-selector>
+<app-exercise
+  *ngIf="user && exercise"
+  [exercise]="exercise"
   (result)="updateResult($event)"
-></app-multiplicacion>
+></app-exercise>
 <app-result
   class="resultado"
-  *ngIf="this.points !== null"
->Resultado: {{ this.points }}</app-result>
+  *ngIf="points !== null"
+>Resultado: {{ points }}</app-result>
 <app-button
   class="resultado"
-  *ngIf="this.points !== null"
+  *ngIf="points !== null"
   (click)="reload()"
 >Repetir</app-button>
-<div
-  class="chart-wrapper"
-  *ngIf="this.users.length > 0"
->
-  <canvas
-    baseChart
-    [datasets]="lineChartData"
-    [labels]="lineChartLabels"
-    [options]="lineChartOptions"
-    [colors]="lineChartColors"
-    [legend]="lineChartLegend"
-    [chartType]="lineChartType"
-    [plugins]="lineChartPlugins"
+<chart-container *ngIf="users.length > 0 && (!user || points)">
+  <div
+    *ngFor="let exercise of exercises"
+    class="chart-wrapper"
   >
-  </canvas>
-</div>
+    <span>{{ exercise.name }}</span>
+    <canvas
+      baseChart
+      [datasets]="lineChartData[exercise.level]"
+      [labels]="lineChartLabels[exercise.level]"
+      [options]="lineChartOptions"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins"
+    >
+    </canvas>
+  </div>
+</chart-container>

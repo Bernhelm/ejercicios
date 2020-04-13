@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { UserData } from './interfaces';
+import { UserData, Exercise } from './interfaces';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,10 +13,19 @@ export class AppComponent {
   user: string = null;
   users: Array<string> = ['Papa', 'Lia', 'David'];
   storage: Array<Object>;
+  exercise: Exercise = null;
+  exercises: Array<Exercise> = [
+    { name: 'Suma', operation: '+', level: 0 },
+    { name: 'Resta', operation: '-', level: 1 },
+    { name: 'Multiplicacion', operation: 'x', level: 2 },
+  ];
+  operation: string = null;
 
-  lineChartData: ChartDataSets[] = [];
+  lineChartData: Array<ChartDataSets[]> = new Array(this.exercises.length).fill(
+    []
+  );
 
-  lineChartLabels: Label[];
+  lineChartLabels: Array<Label[]> = new Array(this.exercises.length).fill([]);
 
   lineChartOptions = {
     responsive: true,
@@ -38,7 +47,7 @@ export class AppComponent {
       JSON.parse(localStorage.getItem('data')) ||
       this.users.reduce((accum, user) => {
         let newUser = {};
-        newUser[user] = [];
+        newUser[user] = [[], [], []];
         return Object.assign({}, accum, newUser);
       }, {});
     this.updateData();
@@ -46,6 +55,8 @@ export class AppComponent {
 
   reload() {
     this.user = null;
+    this.exercise = null;
+    this.operation = null;
     this.points = null;
   }
 
@@ -56,44 +67,56 @@ export class AppComponent {
 
   updateStorage() {
     if (!this.storage[this.user]) {
-      this.storage[this.user] = [];
+      this.storage[this.user] = [[], [], []];
     }
-    this.storage[this.user] = [...this.storage[this.user], this.points];
+    this.storage[this.user][this.exercise.level] = [
+      ...this.storage[this.user][this.exercise.level],
+      this.points,
+    ];
     localStorage.setItem('data', JSON.stringify(this.storage));
     this.updateData();
   }
 
   updateData() {
-    const maxNumberValues: number = Object.keys(this.storage).reduce(
-      (accum, user) => {
-        return Math.max(accum, this.storage[user].length);
-      },
-      0
-    );
+    this.exercises.map((element, index) => {
+      const maxNumberValues: number = Object.keys(this.storage).reduce(
+        (accum, user) => {
+          return Math.max(accum, this.storage[user][index].length);
+        },
+        0
+      );
 
-    this.lineChartData = Object.keys(this.storage)
-      .map((user) => {
-        const userData: UserData = {
-          data: this.storage[user],
-          label: user,
-        };
-        return userData;
-      })
-      .map((value) => {
-        const length = value.data.length;
-        if (length < maxNumberValues) {
-          value.data = [
-            ...value.data,
-            ...new Array(maxNumberValues - length).fill(value.data[length - 1]),
-          ];
-        }
-        return value;
-      });
+      this.lineChartData[index] = Object.keys(this.storage)
+        .map((user) => {
+          const userData: UserData = {
+            data: this.storage[user][index],
+            label: user,
+          };
+          return userData;
+        })
+        .map((value) => {
+          const length = value.data.length;
+          if (length < maxNumberValues) {
+            value.data = [
+              ...value.data,
+              ...new Array(maxNumberValues - length).fill(
+                value.data[length - 1]
+              ),
+            ];
+          }
+          return value;
+        });
 
-    this.lineChartLabels = new Array(maxNumberValues).fill('');
+      this.lineChartLabels[index] = new Array(maxNumberValues).fill('');
+    });
   }
 
   selectUser(user: string) {
     this.user = user;
+  }
+
+  selectExercise(exercise: Exercise) {
+    this.exercise = exercise;
+    this.updateData();
   }
 }

@@ -1,10 +1,12 @@
 export interface Exercise {
-  a: number;
-  b: number;
+  a?: number;
+  b?: number;
+  name?: string;
   operation: string;
-  disabled: boolean;
-  result: boolean;
-  answer: number;
+  disabled?: boolean;
+  result?: boolean;
+  answer?: number;
+  level?: number;
 }
 
 export interface UserData {
