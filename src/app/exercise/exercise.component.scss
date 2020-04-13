@@ -87,3 +87,11 @@ app-result {
   font-size: 25px;
   @include app-box;
 }
+
+chart-container {
+  display: flex;
+  justify-content: center;
+  .chart-wrapper {
+    flex-basis: 50%;
+  }
+}

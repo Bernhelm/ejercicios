@@ -2,8 +2,6 @@ import {
   Component,
   OnInit,
   AfterViewInit,
-  EventEmitter,
-  Output,
   ViewChild,
   ElementRef,
 } from '@angular/core';
