@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "source $HOME/.nvm/nvm.sh; nvm use && ng serve",
+    "start": "source $HOME/.nvm/nvm.sh; nvm use && ng serve --host=0.0.0.0",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
