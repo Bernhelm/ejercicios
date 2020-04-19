@@ -209,20 +209,23 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
 
   checkAll(): void {
     this.ejercicios.forEach((ejercicio) => this.check(ejercicio));
-    const points =
+    const points = Math.max(
+      0,
       this.ejercicios.filter((ejercicio: Exercise) => ejercicio.result).length *
         1 -
-      this.ejercicios.filter(
-        (ejercicio: Exercise) => !ejercicio.result && ejercicio.answer !== null
-      ).length *
-        1 +
-      Math.max(
-        0,
-        Math.floor(this.countdown / 10) -
-          this.ejercicios.filter(
-            (ejercicio: Exercise) => ejercicio.answer === null
-          ).length
-      );
+        this.ejercicios.filter(
+          (ejercicio: Exercise) =>
+            !ejercicio.result && ejercicio.answer !== null
+        ).length *
+          1 +
+        Math.max(
+          0,
+          Math.floor(this.countdown / 10) -
+            this.ejercicios.filter(
+              (ejercicio: Exercise) => ejercicio.answer === null
+            ).length
+        )
+    );
     this.DataService.add(points);
     this.points = points;
     this.updateData(this.DataService.getData());
