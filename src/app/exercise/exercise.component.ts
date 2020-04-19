@@ -124,6 +124,10 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
         a = x;
         b = y;
         break;
+      case '/':
+        a = x * y;
+        b = y;
+        break;
     }
 
     const exercise: Exercise = {
@@ -173,6 +177,12 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
         break;
       case '-':
         ejercicio.result = ejercicio.a - ejercicio.b === ejercicio.answer;
+        if (ejercicio.answer === null) {
+          ejercicio.result = null;
+        }
+        break;
+      case '/':
+        ejercicio.result = ejercicio.a / ejercicio.b === ejercicio.answer;
         if (ejercicio.answer === null) {
           ejercicio.result = null;
         }

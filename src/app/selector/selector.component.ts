@@ -10,16 +10,14 @@ import { SelectorService } from '../selector.service';
 })
 export class SelectorComponent {
   exercise: Exercise = null;
-  exercises: Array<Exercise> = [
-    { name: 'Suma', operation: '+', level: 0 },
-    { name: 'Resta', operation: '-', level: 1 },
-    { name: 'Multiplicacion', operation: 'x', level: 2 },
-  ];
+  exercises: Array<Exercise>;
 
   constructor(
     private SelectorService: SelectorService,
     private router: Router
-  ) {}
+  ) {
+    this.exercises = SelectorService.exercises;
+  }
 
   selectExercise(exercise): void {
     this.SelectorService.setCurrent(exercise);
