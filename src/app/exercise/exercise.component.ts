@@ -146,17 +146,34 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+  focusPrevious(index): void {
+    if (index - 1 > -1) {
+      this.container.nativeElement.querySelectorAll('input')[index - 1].focus();
+    }
+  }
+
+  focusNext(index): void {
+    if (index + 1 < this.difficult) {
+      this.container.nativeElement.querySelectorAll('input')[index + 1].focus();
+    } else {
+      if (!this.focusFirstEmpty()) {
+        this.checkAll();
+      }
+    }
+  }
+
   keyDown(event, index: number): void {
     if (event.key === 'Enter') {
-      if (index + 1 < this.difficult) {
-        this.container.nativeElement
-          .querySelectorAll('input')
-          [index + 1].focus();
-      } else {
-        if (!this.focusFirstEmpty()) {
-          this.checkAll();
-        }
-      }
+      event.preventDefault();
+      this.focusNext(index);
+    }
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.focusPrevious(index);
+    }
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.focusNext(index);
     }
   }
 
