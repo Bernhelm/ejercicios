@@ -26,17 +26,17 @@
   class="reset"
   *ngIf="points !== null"
   (click)="refresh()"
->Repetir</app-button>
+>↻</app-button>
 <app-button
   class="back"
   *ngIf="points !== null"
   (click)="back()"
->Volver</app-button>
+>+ - x /</app-button>
 <app-button
   class="home"
   *ngIf="points !== null"
   (click)="reload()"
->Inicio</app-button>
+>🏠</app-button>
 <chart-container *ngIf="points">
   <div class="chart-wrapper">
     <span>{{ exercise.name }}</span>
