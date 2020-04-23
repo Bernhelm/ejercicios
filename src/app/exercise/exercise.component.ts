@@ -259,6 +259,11 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
     this.ngOnInit();
   }
 
+  back(): void {
+    this.SelectorService.setCurrent(null);
+    this.router.navigate(['/selector']);
+  }
+
   reload(): void {
     this.UserService.setCurrent(null);
     this.SelectorService.setCurrent(null);

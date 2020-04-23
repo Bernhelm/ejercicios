@@ -30,6 +30,11 @@
 <app-button
   class="back"
   *ngIf="points !== null"
+  (click)="back()"
+>Volver</app-button>
+<app-button
+  class="home"
+  *ngIf="points !== null"
   (click)="reload()"
 >Inicio</app-button>
 <chart-container *ngIf="points">
