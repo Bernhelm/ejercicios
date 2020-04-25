@@ -11,7 +11,6 @@ export class UserService {
 
   constructor(private StorageService: StorageService) {
     this.current = null;
-    this.userList = this.StorageService.getData();
   }
 
   setCurrent(current: UserData) {
@@ -23,6 +22,6 @@ export class UserService {
   }
 
   get users(): Array<UserData> {
-    return this.userList;
+    return this.StorageService.getData();
   }
 }
