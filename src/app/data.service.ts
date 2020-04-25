@@ -24,6 +24,19 @@ export class DataService {
     this.StorageService.setData(users);
   }
 
+  addUser(user) {
+    const exercises = this.SelectorService.exercises;
+    const users = [
+      ...this.UserService.users,
+      {
+        data: [new Array(exercises.length)],
+        label: user,
+        id: this.UserService.users.length,
+      },
+    ];
+    this.StorageService.setData(users);
+  }
+
   getData() {
     return this.StorageService.getData();
   }

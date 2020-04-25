@@ -21,3 +21,13 @@ app-button {
   color: #6a38ff;
   font-size: 25px;
 }
+
+app-button[create-user] {
+  @include app-button;
+  width: 200px;
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  color: #6a38ff;
+  font-size: 25px;
+}
