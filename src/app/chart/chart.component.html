@@ -3,7 +3,7 @@
     routerLinkActive="active"
   >Inicio</a>
 </app-button>
-<div class="chart-wrapper">
+<div class="chart-wrapper tercio">
   <span>Valores actuales</span>
   <canvas
     baseChart
@@ -16,4 +16,24 @@
     [plugins]="lineChartPlugins"
   >
   </canvas>
+</div>
+<div class="columns">
+  <div
+    class="chart-wrapper"
+    *ngFor="let chart of charts; let i = index"
+  >
+    <span>{{ chart.name }}</span>
+    <canvas
+      baseChart
+      [datasets]="chart.data"
+      [labels]="chart.labels"
+      [options]="lineChartOptionsLine"
+      [colors]="lineChartColors"
+      [legend]="lineChartLegend"
+      [chartType]="'line'"
+      [plugins]="lineChartPlugins"
+    >
+    </canvas>
+  </div>
+
 </div>
