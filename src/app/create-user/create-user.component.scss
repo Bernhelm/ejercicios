@@ -1,0 +1,25 @@
+@import "../../styles";
+
+:host {
+  padding-top: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  width: 150px;
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+app-button {
+  @include app-button;
+  color: #6a38ff;
+  font-size: 25px;
+
+  &.home {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+  }
+}

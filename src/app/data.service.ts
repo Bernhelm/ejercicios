@@ -29,8 +29,8 @@ export class DataService {
     const users = [
       ...this.UserService.users,
       {
-        data: [new Array(exercises.length)],
         label: user,
+        data: new Array(exercises.length).fill([]),
         id: this.UserService.users.length,
       },
     ];

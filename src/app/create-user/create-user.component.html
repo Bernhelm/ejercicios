@@ -1,5 +1,10 @@
 <input
   placeholder="Apodo"
   [(ngModel)]="apodo"
+  #input
 >
-<app-button (click)="createUser()">Crear<app-button>
+<app-button (click)="createUser()">Crear</app-button>
+<app-button
+  class="home"
+  (click)="home()"
+>🏠</app-button>
