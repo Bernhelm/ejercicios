@@ -13,6 +13,8 @@ export class SelectorService {
     { name: 'Resta', operation: '-', level: 1 },
     { name: 'Multiplicacion', operation: 'x', level: 2 },
     { name: 'Division', operation: '/', level: 3 },
+    { name: 'Suma 2', operation: '+', level: 4 },
+    { name: 'Resta 2', operation: '-', level: 5 },
   ];
 
   constructor() {

@@ -1,35 +1,32 @@
 import { Injectable } from '@angular/core';
 import { UserData } from './interfaces';
+import { SelectorService } from './selector.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  initialData: Array<UserData> = [
-    // {
-    //   label: 'Papa',
-    //   id: 0,
-    //   data: [[1, 5, 11, 46, 31], [1, 3], [46, 47, 45, 0, 47, 0, 47, 45, 1], []],
-    // },
-    // {
-    //   label: 'Lia',
-    //   id: 1,
-    //   data: [[18], [20], [14, 26, 24, 17, 19, 27, 22, 22, 26], []],
-    // },
-    // {
-    //   label: 'David',
-    //   id: 2,
-    //   data: [
-    //     [21],
-    //     [24],
-    //     [0, 6, 22, 23, 22, 28, 27, 26, 20, 31, 31, 16, 31],
-    //     [],
-    //   ],
-    // },
-  ];
+  levels;
+  initialData: Array<UserData> = [];
+
+  constructor(private SelectorService: SelectorService) {
+    this.levels = SelectorService.exercises.length;
+  }
+
+  fixData(data) {
+    data.map((user) => {
+      const userData = new Array(this.levels).fill([]);
+      user.data = userData.map((levelData, index) => {
+        return user.data[index] || [];
+      });
+      return user;
+    });
+    return data;
+  }
 
   getData(): Array<UserData> {
-    return JSON.parse(localStorage.getItem('app')) || this.initialData;
+    const data = JSON.parse(localStorage.getItem('app')) || this.initialData;
+    return this.fixData(data);
   }
   setData(data) {
     localStorage.setItem('app', JSON.stringify(data));

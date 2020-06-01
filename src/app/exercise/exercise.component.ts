@@ -108,8 +108,13 @@ export class ExerciseComponent implements OnInit, AfterViewInit {
   }
 
   createExercice() {
-    let x = this.getRandomInt();
-    let y = this.getRandomInt();
+    let max = 10;
+    let min = 1;
+    if (this.exercise.level > 3) {
+      max = 30;
+    }
+    let x = this.getRandomInt(min, max);
+    let y = this.getRandomInt(min, max);
     let a: number, b: number;
     switch (this.exercise.operation) {
       case '+':
